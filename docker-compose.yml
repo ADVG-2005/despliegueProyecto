@@ -1,0 +1,59 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgres_agrosoft
+    restart: always
+    environment:
+      POSTGRES_DB: AgroSisDjango
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: adso2024
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - agrosoft_net
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis_agrosoft
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - agrosoft_net
+
+  backend:
+    image: advg2005/backend-agrosoft:1.0
+    container_name: backend_agrosoft
+    restart: always
+    environment:
+      - DB_NAME=AgroSisDjango
+      - DB_USER=postgres
+      - DB_PASSWORD=adso2024
+      - DB_HOST=db
+      - DB_PORT=5432
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - db
+      - redis
+    ports:
+      - "8000:8000"
+    networks:
+      - agrosoft_net
+
+  frontend:
+    image: advg2005/frontend-agrosoft:1.1
+    container_name: frontend_agrosoft
+    restart: always
+    ports:
+      - "5173:80"
+    networks:
+      - agrosoft_net
+
+volumes:
+  postgres_data:
+
+networks:
+  agrosoft_net:
+    driver: bridge
