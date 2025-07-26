@@ -4,7 +4,7 @@ REQUISITOS:
 2. Tener docker-compose.
 
 PASOS:
-1. Clonar este repositorio en su ordenador: "http://github.com/ADVG-2005/despliegueProyecto.git"
+1. Clonar este repositorio en su ordenador: "https://github.com/ADVG-2005/despliegueProyecto.git"
 2. Entrar a la carpeta clonada. "cd despliegueProyecto"
 3. Abrir una cmd y ejecutar el siguiente comando: "docker-compose up -d --build"
 4. esto ejecutara el build, creara y correra los contenedores
