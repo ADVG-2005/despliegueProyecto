@@ -6,9 +6,9 @@ services:
     container_name: postgres_agrosoft
     restart: always
     environment:
-      POSTGRES_DB: AgroSisDjango
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: adso2024
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
@@ -28,12 +28,12 @@ services:
     container_name: backend_agrosoft
     restart: always
     environment:
-      - DB_NAME=AgroSisDjango
-      - DB_USER=postgres
-      - DB_PASSWORD=adso2024
-      - DB_HOST=db
-      - DB_PORT=5432
-      - REDIS_URL=redis://redis:6379
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - REDIS_URL=${REDIS_URL}
     depends_on:
       - db
       - redis
@@ -50,6 +50,11 @@ services:
     image: advg2005/frontend-agrosoft:1.1
     container_name: frontend_agrosoft
     restart: always
+    environment:
+      - VITE_API_URL=${VITE_API_URL}
+      - VITE_WEBSOCKET_URL=${VITE_WEBSOCKET_URL}
+    depends_on:
+      - backend
     ports:
       - "5173:80"
     networks:
