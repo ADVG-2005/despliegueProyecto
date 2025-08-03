@@ -24,7 +24,7 @@ services:
       - agrosoft_net
 
   backend_agrosoft:
-    image: advg2005/backend-agrosoft:1.0
+    image: advg2005/backend-agrosoft:1.1
     container_name: backend_agrosoft
     restart: always
     ports:
